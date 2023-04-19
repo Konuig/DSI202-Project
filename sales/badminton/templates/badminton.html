@@ -1,0 +1,16 @@
+{% extends 'components/base.html' %}
+
+{% block title %}สินค้า {{product.title}}{% endblock title %}
+
+{% block content %}
+{% if product is not None %}
+    <div>
+        <h3>{{product.title}}</a></h3>
+        <p>{{product.price|floatformat:'2g' }} บาท</p>
+        <p>description</p>
+    </div>
+{% else %}
+    <p>ไม่พบสินค้า</p>
+
+{% endif %}
+{% endblock content %}

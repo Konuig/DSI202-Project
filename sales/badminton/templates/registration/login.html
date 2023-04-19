@@ -1,0 +1,12 @@
+{% extends 'components/base.html' %}
+
+{% block title %}เข้าสู่ระบบ{% endblock title %}
+
+{% block content %}
+<h2>เข้าสู่ระบบ</h2>
+<form action="{% url 'login' %}" method="post"> 
+    {% csrf_token %} 
+    {{ form.as_p }} 
+    <button type="submit">เข้าสู่ระบบ</button> 
+</form> 
+{% endblock content %}

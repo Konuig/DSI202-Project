@@ -1,0 +1,17 @@
+{% extends 'components/base.html' %}
+
+{% block title %}สินค้าทั้งหมด{% endblock title %}
+
+{% block content %}
+    <div>
+        <h2>รายการสินค้า</h2>
+        {% for product in products %}
+            <div style="background-color: rgb(37, 190, 145);";">
+                <h3><a href="{% url 'badminton' product.id %}">{{product.title}}</a></h3>
+                <p>{{product.price|floatformat:'2g'}} บาท</p>
+            </div>
+        {% empty %}
+            <p>ไม่มีสินค้า</p>
+        {% endfor %}
+    </div>
+{% endblock content %}
