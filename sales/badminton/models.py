@@ -10,4 +10,4 @@ class Product(models.Model) :
     quantity = models.IntegerField(default=1, null=True,blank=True)
     instock = models.BooleanField(default=True)
     #file
-    #picture = models.ImageField(upload_to='product',null=True,blank = True)
+    picture = models.ImageField(upload_to='product',null=True,blank = True)
