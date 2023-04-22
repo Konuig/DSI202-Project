@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , get_object_or_404 
 from django.http import HttpResponse , HttpResponseRedirect, HttpRequest
 from datetime import datetime
 from .forms import RegisterForm
@@ -43,4 +43,35 @@ def register(requst) :
     #GET
     context = {'form' : form}
     return render(requst, 'register.html',context)
+
+def add_to_cart(request, badminton_id):
+    product = get_object_or_404(Product,id = badminton_id)
+    cart_items = request.session.get('cart_items') or []
+
+    #update existing items
+    duplicated = False
+    for c in cart_items :
+        if c.get('id') == product.id :
+            c['qty'] = int(c.get('qty') or '1' )+ 1
+            duplicated = True
+
+    #new insert
+    if not duplicated :
+        cart_items.append({'id':  product.id,
+                          'name' : product.title ,
+                          'qty' : 1, 
+                          })
+        
+    request.session['cart_items'] = cart_items
+    return HttpResponseRedirect(reverse('cart_list',kwargs={}))
+
+def cart_list(request) :
+    cart_items = request.session.get('cart_items') or []
+    total_qty = 0
+    for c in cart_items :
+        total_qty = total_qty + c.get('qty')
+
+    request.session['cart_qty'] = total_qty
+    return render(request,'product_cart.html', {'cart_items':cart_items})
+
 

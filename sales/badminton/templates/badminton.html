@@ -21,6 +21,7 @@
         {% else %}
         <p>NO Imag</p>
         {% endif %}
+        <a href="{% url 'add_to_cart' product.id %}">ลงตะกร้า</a>
     </div>
 {% else %}
     <p>ไม่พบสินค้า</p>
