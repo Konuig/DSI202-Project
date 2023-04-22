@@ -1,0 +1,35 @@
+{% extends 'components/base.html' %}
+
+{% block title %}ตะกร้าสินค้าของคุณ{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <h1>Order</h1>
+
+        <table>
+
+            <tr>
+                <th>Name</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        
+            
+                {% for c in cart_items %}
+                <tr>
+                    <td>{{c.name}}</td>
+                    <td>{{c.qty}}</td>
+                    <td>{{c.price}}</td>
+                    <td>
+                        <a href="#">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+        
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

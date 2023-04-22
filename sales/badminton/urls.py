@@ -1,4 +1,4 @@
-from django.urls import path,include
+from django.urls import path,include ,re_path
 from .views import *
 
 urlpatterns = [
@@ -8,4 +8,6 @@ urlpatterns = [
     path('about', About, name='about'),
     path('badmintons',Badmintons,name='badmintons'),
     path('register',register, name='register'),
+    re_path(r'cart/add/(?P<badminton_id>[\w-]+)/$', add_to_cart,name="add_to_cart"),
+    re_path(r'cart/list/$',cart_list,name="cart_list"),
 ]
