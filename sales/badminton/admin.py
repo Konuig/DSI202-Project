@@ -2,4 +2,12 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-admin.site.register(Product)
+class BookProduct(admin.ModelAdmin):
+    list_display = ('id','instock','title', 'description', 'size','price','special_price')
+    list_display_links = ('id',)
+    list_editable = ('title',)
+    list_filter = ('title',)
+    search_fields =('title',)
+    
+
+admin.site.register(Product,BookProduct)
