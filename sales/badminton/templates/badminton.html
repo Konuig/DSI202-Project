@@ -6,8 +6,21 @@
 {% if product is not None %}
     <div>
         <h3>{{product.title}}</a></h3>
-        <p>{{product.price|floatformat:'2g' }} บาท</p>
+        {% if product.special_price is not None %}                
+        <p> 
+        <span> {{product.special_price|floatformat:'2g'}}</span>
+        <del>{{product.price|floatformat:'2g'}}</del>
+        </p>
+        {% else %}
+        <p>{{product.price|floatformat:'2g'}} บาท</p>
+        {% endif %}
         <p>description</p>
+        
+        {% if product.picture is not None %}
+        <img src="{{ product.picture.url }}"/>
+        {% else %}
+        <p>NO Imag</p>
+        {% endif %}
     </div>
 {% else %}
     <p>ไม่พบสินค้า</p>
