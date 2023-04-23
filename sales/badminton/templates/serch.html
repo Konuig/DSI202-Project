@@ -1,0 +1,34 @@
+{% extends 'components/base.html' %}
+
+{% block title %}ค้นหา{% endblock title %}
+
+{% block content %}
+<h2>product list</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>title</th>
+            <th>price</th>
+            <th>special price</th>
+        </tr>
+         </thead>
+         <tbody>
+            
+            {% for product in product_S %}
+                <tr>
+                    <td>{{product.title}}</td>
+                    <td>{{product.price}}</td>
+                    
+                    {% if product.special_price is not None %}
+                    <td>{{product.special_price|floatformat:'2g'}}</td>   
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+                        
+                    
+                </tr>
+            {% endfor %}
+                
+         </tbody>
+    </table>
+{% endblock content %}

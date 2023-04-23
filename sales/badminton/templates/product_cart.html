@@ -23,7 +23,7 @@
                     <td>{{c.qty}}</td>
                     <td>{{c.price}}</td>
                     <td>
-                        <a href="#">Delete</a>
+                        <a href="{% url 'cart_delete' c.id %}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

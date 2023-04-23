@@ -7,7 +7,10 @@ urlpatterns = [
     path('badminton/<int:badminton_id>', Badminton , name="badminton"),
     path('about', About, name='about'),
     path('badmintons',Badmintons,name='badmintons'),
+    path('serch',Serchfilter,name='serch'),
     path('register',register, name='register'),
     re_path(r'cart/add/(?P<badminton_id>[\w-]+)/$', add_to_cart,name="add_to_cart"),
+    re_path(r'cart/delete/(?P<badminton_id>[\w-]+)/$', cart_delete,name="cart_delete"),
     re_path(r'cart/list/$',cart_list,name="cart_list"),
+
 ]
