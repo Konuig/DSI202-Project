@@ -18,6 +18,16 @@
     
     {% endif %}
 
+    
+    {% if request.session.cart_qty %}
+    <a class="btn btn-outline-danger mx-2" href="{% url 'cart_list' %}">Cart {{request.session.cart_qty}}</a>    
+    {% else %}
+    <a class="btn btn-outline-danger mx-2" href="{% url 'cart_list' %}">Cart 0</a> 
+    {% endif %}
+        
+    
+
+
     <!-- serch filter -->
     <form action="{% url 'serch' %}" method="get">
         {{ form_S.as_p }}
