@@ -10,17 +10,19 @@ from .models import *
 # Create your views here.
 
 def Home(request) :
-    context = {'form' : ProductTitleFilter() , 'product_S' : Product.objects.all()}
-    return render(request, 'home.html', context)
+    return render(request, 'home.html')
 
 def Serchfilter(request) :
-    context = {'form' : ProductTitleFilter() , 'product_S' : Product.objects.all()}
+    title = request.GET.get('title')
+    product = Product.objects.all()
+    if title:
+        product = product.filter(title__icontains=title)
+    context = {'form_S' : ProductTitleFilter(),
+               'product_S' : product}
     return render(request, 'serch.html', context)
 
 def About(request) :
-    context = {'form' : ProductTitleFilter() , 'product_S' : Product.objects.all()}
-
-    return render(request, 'about.html',context)
+    return render(request, 'about.html')
 
 def Badminton(request, badminton_id) :
 
@@ -29,13 +31,12 @@ def Badminton(request, badminton_id) :
         one_product = Product.objects.get(id = badminton_id)
     except :
         print("ไม่พบสินค้า")
-    context = {'product' : one_product,'form' : ProductTitleFilter() , 'product_S' : Product.objects.all()}
+    context = {'product' : one_product}
     return render(request,'badminton.html',context)
 
 def Badmintons(request) :
     all_products = Product.objects.all().order_by('-instock')
-    context = {'products' : all_products, 'form' : ProductTitleFilter() , 
-               'product_S' : Product.objects.all()}
+    context = {'products' : all_products}
 
     return render(request,'badmintons.html', context)
 
@@ -77,7 +78,6 @@ def add_to_cart(request, badminton_id):
     return HttpResponseRedirect(reverse('cart_list',kwargs={}))
 
 def cart_list(request) :
-    context = {'form' : ProductTitleFilter() , 'product_S' : Product.objects.all()}
 
     cart_items = request.session.get('cart_items') or []
     total_qty = 0
@@ -85,7 +85,7 @@ def cart_list(request) :
         total_qty = total_qty + c.get('qty')
 
     request.session['cart_qty'] = total_qty
-    context = {'cart_items':cart_items , 'form' : ProductTitleFilter() , 'product_S' : Product.objects.all()}
+    context = {'cart_items':cart_items}
     return render(request,'product_cart.html', context)
 
 
