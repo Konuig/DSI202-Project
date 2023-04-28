@@ -11,3 +11,5 @@ class BookProduct(admin.ModelAdmin):
     
 
 admin.site.register(Product,BookProduct)
+admin.site.register(Profile)
+admin.site.register(Order)

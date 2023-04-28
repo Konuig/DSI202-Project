@@ -54,3 +54,4 @@ class Order(models.Model) :
         return self.pk
 
     order_at = models.DateTimeField(auto_now_add=True)
+    
