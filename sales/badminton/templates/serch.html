@@ -16,7 +16,9 @@
             
             {% for product in product_S %}
                 <tr>
-                    <td>{{product.title}}</td>
+                    <td>
+                        <a href="{% url 'badminton' product.id %}">{{product.title}}</a>
+                    </td>
                     <td>{{product.price}}</td>
                     
                     {% if product.special_price is not None %}
