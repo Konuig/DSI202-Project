@@ -5,6 +5,7 @@ from .forms import RegisterForm , ProductTitleFilter
 from django.contrib.auth import login
 from django.urls import reverse
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -59,21 +60,27 @@ def add_to_cart(request, badminton_id):
     product = get_object_or_404(Product,id = badminton_id)
     cart_items = request.session.get('cart_items') or []
 
-    #update existing items
-    duplicated = False
-    for c in cart_items :
-        if c.get('id') == product.id :
-            c['qty'] = int(c.get('qty') or '1' ) + 1
-            duplicated = True
+    try :
+        #update existing items
+        duplicated = False
+        for c in cart_items :
+            if c.get('id') == product.id :
+                c['qty'] = int(c.get('qty') or '1' ) + 1
+                c['total_price'] = str(float((c.get('special_price')) or c.get('price')) * float(c.get('qty')))
+                duplicated = True
 
-    #new insert
-    if not duplicated :
-        cart_items.append({'id':  product.id,
-                          'name' : product.title ,
-                          'qty' : 1, 
-                          'price' : str(product.price),
-                          })
-        
+        #new insert
+        if not duplicated :
+            cart_items.append({'id':  product.id,
+                            'name' : product.title ,
+                            'qty' : 1, 
+                            'price' : str(product.price),
+                            'special_price' : str(product.special_price) or None , 
+                            'total_price' : str(product.special_price) or str(product.price)
+                            })
+    except :
+        pass
+            
     request.session['cart_items'] = cart_items
     return HttpResponseRedirect(reverse('cart_list',kwargs={}))
 
@@ -99,3 +106,6 @@ def cart_delete(request,badminton_id) :
     request.session['cart_items'] = cart_items
 
     return HttpResponseRedirect(reverse('cart_list',kwargs={}))
+
+def cart_checkout(request) :
+    pass
