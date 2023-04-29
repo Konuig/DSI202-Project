@@ -41,8 +41,9 @@ def update_profile_signal(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 class Order(models.Model) :
-    profile = models.ForeignKey( Profile, on_delete=models.CASCADE)
-    reciept = models.ImageField(upload_to='reciepts',null=True,blank = True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    items = models.CharField(max_length=500,default='product')
+    reciept = models.ImageField(upload_to='reciepts',null=False)
     
     #CHOICE
     class STATUS(models.TextChoices) :
@@ -51,7 +52,9 @@ class Order(models.Model) :
 
     status = models.CharField(max_length=100,choices=STATUS.choices,default=STATUS.UNAPPROVED)
     def __str__(self) -> str:
-        return self.pk
+        return str(self.pk)
 
     order_at = models.DateTimeField(auto_now_add=True)
+
+
     

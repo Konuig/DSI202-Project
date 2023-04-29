@@ -1,0 +1,28 @@
+{% extends 'components/base.html' %}
+{% block title %}checkout{% endblock title %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-field">
+        
+        {{ form.profile }}
+        
+      </div>
+      <div class="form-field">
+        
+        {{ form.items }}
+        plase copy this to form items 
+        for{{ request.session.cart_items }} total cart : {{request.session.cart_price}}   
+      </div>
+      <div class="form-field">
+        
+        {{ form.reciept }}
+    
+      </div>
+    
+
+    <button type="submit" class="btn btn-primary">Check out</button><br>
+
+
+</form>
+{% endblock content %}

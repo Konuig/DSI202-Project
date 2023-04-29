@@ -3,6 +3,7 @@
 {% block title %}ตะกร้าสินค้าของคุณ{% endblock title %}
 
 {% block content %}
+{% load %}
 <div class="row">
     <div class="col-lg-6 offset-lg-3">
         <h1>Order</h1>
@@ -37,4 +38,11 @@
     </div>
 </div>
 
+{% if request.session.cart_qty > 0 %}
+<a class="btn btn-outline-danger mx-2" href="{% url 'check_out' %}">CHECK OUT</a> 
+{% else %}
+<button type="button" disabled>check out</button>   
+{% endif %}
+<!-- <button onclick="get_qr(mode='mobile', send_to='0939972474', amount=request.session.cart_price)">Click me</button> -->
+<!-- <button onclick="plus()">Click me</button> -->
 {% endblock content %}

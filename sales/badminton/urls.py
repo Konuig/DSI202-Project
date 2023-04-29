@@ -13,6 +13,7 @@ urlpatterns = [
     re_path(r'cart/add/(?P<badminton_id>[\w-]+)/$', add_to_cart,name="add_to_cart"),
     re_path(r'cart/delete/(?P<badminton_id>[\w-]+)/$', cart_delete,name="cart_delete"),
     re_path(r'cart/list/$',cart_list,name="cart_list"),
-    path('checkout',cart_checkout,name='checkout'),
+    path('checkout',cart_checkout,name='check_out'),
+    path('cartpayment',cart_payment,name='cartpayment'),
 
 ]
