@@ -1,35 +1,50 @@
-<header style="background-color: lightgray;">
-    <a href="{% url 'home' %}">Yobadminton</a>
-    <a href="{% url 'badmintons' %}">สินค้าทั้งหมด</a>
-    <a href="{% url 'about' %}">เกี่ยวกับ</a>   
-    
-    {% if user.is_authenticated %}
-    <a href="{% url 'home' %}">{{user.username}}</a>
-    <!-- <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">ออกจากระบบ
-        </button>     -->
-    <a href="{% url 'logout' %}">ออกจากระบบ</a>
+{% load static %}
 
-    {% else %}
-    <a href="{% url 'account_login' %}">เข้าสู่ระบบ</a>
-    <a href="{% url 'register' %}">สมัครสมาชิก</a>    
-    {% endif %}
+<header>
 
-    
-    {% if request.session.cart_qty %}
-    <a class="btn btn-outline-danger mx-2" href="{% url 'cart_list' %}">Cart {{request.session.cart_qty}}</a>    
-    {% else %}
-    <a class="btn btn-outline-danger mx-2" href="{% url 'cart_list' %}">Cart 0</a> 
-    {% endif %}
-        
-    
-
-
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <!-- serch filter -->
     <form action="{% url 'serch' %}" method="get">
-        {{ form_S.as_p }}
-        <input type="submit" value="ค้นหา" class="btn btn-primary" />
+        {% csrf_token %} 
+        <input type="text" name="title" required id="id_title">
+        <input type="submit" name="submit" value="ค้นหา">
     </form>
 
+
+    <div>
+        <ul id="navbar">
+            
+            <li><a href="{% url 'home' %}">Yobadminton</a></li>
+            <li><a href="{% url 'badmintons' %}">สินค้าทั้งหมด</a></li>
+            <li><a href="{% url 'about' %}">เกี่ยวกับ</a></li>   
+    
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'home' %}">{{user.username}}</a></li>
+            <!-- <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">ออกจากระบบ
+            </button>     -->
+            <li><a href="{% url 'logout' %}">ออกจากระบบ</a></li>
+
+            {% else %}
+            <li><a href="{% url 'account_login' %}">เข้าสู่ระบบ</a></li>
+            <li><a href="{% url 'register' %}">สมัครสมาชิก</a></li>    
+            {% endif %}
+
+    
+            {% if request.session.cart_qty %}
+            <a class="btn btn-outline-danger mx-2" href="{% url 'cart_list' %}">Cart {{request.session.cart_qty}}</a>    
+            {% else %}
+            <a class="btn btn-outline-danger mx-2" href="{% url 'cart_list' %}">Cart 0</a> 
+            {% endif %}
+                
+            
+
+
+            
+
+        </ul>
+    </div>
+
+    
 </header>
