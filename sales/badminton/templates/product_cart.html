@@ -39,7 +39,7 @@
 </div>
 
 {% if request.session.cart_qty > 0 %}
-<a class="btn btn-outline-danger mx-2" href="{% url 'check_out' %}">CHECK OUT</a> 
+<a class="btn btn-outline-danger mx-2" href="{% url 'cartpayment' %}">CHECK OUT</a> 
 {% else %}
 <button type="button" disabled>check out</button>   
 {% endif %}
