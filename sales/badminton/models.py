@@ -57,4 +57,4 @@ class Order(models.Model) :
     order_at = models.DateTimeField(auto_now_add=True)
 
 
-    
+

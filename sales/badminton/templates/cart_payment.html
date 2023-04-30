@@ -12,7 +12,7 @@
         
         {{ form.items }}
         plase copy this to form items 
-        for{{ request.session.cart_items }} total cart : {{request.session.cart_price}}   
+        {{ request.session.cart_items }} total cart : {{request.session.cart_price}}   
       </div>
       <div class="form-field">
         

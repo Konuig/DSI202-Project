@@ -19,7 +19,7 @@
             <li><a href="{% url 'about' %}">เกี่ยวกับ</a></li>   
     
             {% if user.is_authenticated %}
-            <li><a href="{% url 'home' %}">{{user.username}}</a></li>
+            <li><a href="{% url 'checkout' %}">{{user.username}}</a></li>
             <!-- <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit">ออกจากระบบ
