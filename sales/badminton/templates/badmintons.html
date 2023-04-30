@@ -3,23 +3,35 @@
 {% block title %}สินค้าทั้งหมด{% endblock title %}
 
 {% block content %}
+{% load static %}
+<body>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <div>
-        <h2>รายการสินค้า</h2>
-        {% for product in products %}
-            <div style="background-color: rgb(37, 190, 145);";">
-                <h3><a href="{% url 'badminton' product.id %}">{{product.title}}</a></h3>
-                
-                {% if product.special_price is not None %}                
-                <p> 
-                    <span> {{product.special_price|floatformat:'2g'}}</span>
-                    <del>{{product.price|floatformat:'2g'}}</del>
-                </p>
-                {% else %}
-                    <p>{{product.price|floatformat:'2g'}} บาท</p>
-                {% endif %}
+        <section id="product_list" class="section_product">
+            <h1>รายการสินค้า</h1>
+            <div class="pro-container">
+                {% for product in products %}
+                <div class="pro">
+                    <img src="{{ product.picture.url }}"/>
+                    <div>
+                        <li><a href="{% url 'badminton' product.id %}">{{product.title}}</a></li>
+                        {% if product.special_price is not None %}                
+                            <p> 
+                                <span> {{product.special_price|floatformat:'2g'}}</span>
+                                <del>{{product.price|floatformat:'2g'}}</del>
+                            </p>
+                        {% else %}
+                            <p>{{product.price|floatformat:'2g'}} บาท</p>
+                        {% endif %}
+                    </div>
                 </div>
-           {% empty %}
+                {% empty %}
               <p>ไม่มีสินค้า</p>
         {% endfor %}
+            </div>
+        </section>
+            
+        
     </div>
+</body>
 {% endblock content %}
