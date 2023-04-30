@@ -1,7 +1,7 @@
 from django.shortcuts import render , get_object_or_404 
 from django.http import HttpResponse , HttpResponseRedirect, HttpRequest
 from datetime import datetime
-from .forms import RegisterForm , ProductTitleFilter
+from .forms import RegisterForm , ProductTitleFilter ,Address ,Payment
 from django.contrib.auth import login
 from django.urls import reverse
 from .models import *
@@ -41,20 +41,20 @@ def Badmintons(request) :
 
     return render(request,'badmintons.html', context)
 
-def register(requst) :
+def register(request) :
     #POST
-    if requst.method == "POST" :
-        form = RegisterForm(requst.POST)
+    if request.method == "POST" :
+        form = RegisterForm(request.POST)
         if form.is_valid() :
             user = form.save()
-            login(requst,user)
+            login(request,user)
             return HttpResponseRedirect(reverse('home'))
     else :
         form = RegisterForm()
 
     #GET
     context = {'form' : form}
-    return render(requst, 'register.html',context)
+    return render(request, 'register.html',context)
 
 @login_required
 def add_to_cart(request, badminton_id):
@@ -113,49 +113,66 @@ def cart_delete(request,badminton_id) :
 
     return HttpResponseRedirect(reverse('cart_list',kwargs={}))
 
-def cart_checkout(request) :
-    try :
-        cart_items = request.session.get('cart_items') 
-        total_cart_price = request.session.get('cart_price') 
-        
-    except :
-        pass
-    
 
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-from IPython.display import Image
-import requests
-import qrcode
-
+# from IPython.display import Image
+# import requests
+# import qrcode
 # def get_qr(mode="mobile", send_to="", amount=1.23):
 #     url='https://thq68saavk.execute-api.ap-southeast-1.amazonaws.com/api/thai_qr'
 #     r = requests.post(url, json={"mode":mode,"send_to":send_to, "amount":amount})
 #     code=r.json()['result']
-#     return code
+
+#     now = datetime.now()
+#     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+#     date_time = date_time.replace(' ','').replace('/','_').replace(':','_')
+#     img = qrcode.make(code,box_size=4)
+#     imgstr = '/qrcode/' + date_time +'.png'
+#     img.save('qr.png')
+
+def cart_checkout(request) :
+    context = {}
+    if request.method == 'POST' :
+        form = Address(request.POST)
+            
+        if form.is_valid():
+            # save the form data to model
+            form.save()
+            return HttpResponseRedirect(reverse('cartpayment'))
+    else :
+        form = Address()
+    
+    context['form']= form
+    return render(request, "checkout.html", context)
+    # try :
+    #     cart_items = request.session.get('cart_items') 
+    #     total_cart_price = request.session.get('cart_price') 
+
+    #     #to promptpay mobile
+    # #     code=get_qr(mode="mobile", send_to="0939972474", amount=total_cart_price)
+    # #     now = datetime.now()
+    # #     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+    # #     date_time = date_time.replace(' ','').replace('/','_').replace(':','_')
+    # #     img = qrcode.make(code,box_size=4)
+    # #     imgstr = '/static/qrcode/' + date_time +'.png'
+    # #     img.save(imgstr)
 
 
-# # In[2]:
+    # except :
+    #     pass
+
+    # return render(request, 'checkout.html')
+def cart_payment(request) :
+    if request.method == 'POST' :
+        form = Payment(request.POST , request.FILES)
+        if form.is_valid():
+            # save the form data to model
+            form.save()
+            return HttpResponseRedirect(reverse('home'))
+    else :
+        form = Payment()
+    
+    context = {'form' : form}
+    return render(request, "cart_payment.html", context)
 
 
-# #to promptpay mobile
-# code=get_qr(mode="mobile", send_to="09876543210", amount=1.23)
-# print(code)
-# img = qrcode.make(code,box_size=4)
-# img.save('qr.png')
-# Image(filename='qr.png') 
 
-
-# # In[3]:
-
-
-# #to promptpay nid
-# code=get_qr(mode="nid", send_to="32109876543210", amount=1.23)
-# print(code)
-# img = qrcode.make(code,box_size=4)
-# img.save('qr.png')
-# Image(filename='qr.png') 

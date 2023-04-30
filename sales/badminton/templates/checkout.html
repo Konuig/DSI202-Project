@@ -1,5 +1,15 @@
 {% extends 'components/base.html' %}
-
 {% block title %}checkout{% endblock title %}
+{% block content %}
+<form action="{% url 'check_out' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+   
+    {{request.session.cart_price}}
 
+    <button type="submit" class="btn btn-primary">Check out</button><br>
+
+
+</form>
 {% endblock content %}
