@@ -1,8 +1,13 @@
-<footer style="background-color: lightgray;">
+{% load static %}
+
+<footer>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <div>
     <h5>ติดตาม</h5>
-    <p>
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-    </p>    
+    <ul id="contact_social">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+    </ul>    
     <p>Copyright 2023 Yobadminton. All right reserved</p>
+    </div>
 </footer>
