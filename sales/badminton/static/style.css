@@ -5,6 +5,10 @@ header{
     padding: 20px 80px;
     background-color: #edede9;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    z-index: 999;
+    position: sticky;
+    top: 0;
+    left: 0;
 
 }
 
@@ -114,4 +118,51 @@ footer{
 #product_list .pro img{
     width: 100%;
     border-radius: 20px;
+}
+
+
+
+#product_detail{
+    display: flex;
+    margin-top: 30px;
+    
+}
+
+#product_detail .pro_image{
+    width: 25%;
+    margin: 50px;
+    margin-right: 50px;
+    position: relative;
+    
+    
+}
+#product_detail .pro_image img{
+    display: block;
+}
+
+
+#product_detail .pro_detail{
+    width: 50%;
+    padding-top: 50px;
+    margin-left: 50px;
+    position: absolute;
+    top: 50;
+    left: 30%;
+}
+
+#product_detail .pro_detail button{
+    background: #aedcf7;
+    color: white;
+}
+
+#product_detail .pro_detail button a:hover{
+    color: white;
+
+}
+
+#product_detail .pro_detail button a{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
 }

@@ -3,28 +3,34 @@
 {% block title %}สินค้า {{product.title}}{% endblock title %}
 
 {% block content %}
+{% load static %}
 {% if product is not None %}
+<body>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <div>
-        <h3>{{product.title}}</a></h3>
-        {% if product.special_price is not None %}                
-        <p> 
-        <span> {{product.special_price|floatformat:'2g'}}</span>
-        <del>{{product.price|floatformat:'2g'}}</del>
-        </p>
-        {% else %}
-        <p>{{product.price|floatformat:'2g'}} บาท</p>
-        {% endif %}
-        <p>description</p>
-        
-        {% if product.picture is not None %}
-        <img src="{{ product.picture.url }}"/>
-        {% else %}
-        <p>NO Imag</p>
-        {% endif %}
-        <a href="{% url 'add_to_cart' product.id %}">ลงตะกร้า</a>
+        <section id="product_detail" class="one_product_detail">
+            <div class="pro_image">
+                {% if product.picture is not None %}
+            <img src="{{ product.picture.url }}"/>
+            </div>
+            <div class="pro_detail">   
+                <h3>{{product.title}}</a></h3>
+                {% if product.special_price is not None %}                
+                <p> 
+                <span> {{product.special_price|floatformat:'2g'}}</span>
+                <del>{{product.price|floatformat:'2g'}}</del>
+                </p>
+                {% else %}
+                <p>{{product.price|floatformat:'2g'}} บาท</p>
+                {% endif %}
+                <button class="normal"><a href="{% url 'add_to_cart' product.id %}">ลงตะกร้า</a></button>
+    
+            </div>
+            {% else %}
+               <p>ไม่พบสินค้า</p>
+               {% endif %}
+        </section>
     </div>
-{% else %}
-    <p>ไม่พบสินค้า</p>
-
+</body>
 {% endif %}
 {% endblock content %}
