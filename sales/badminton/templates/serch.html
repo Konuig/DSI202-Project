@@ -1,36 +1,37 @@
 {% extends 'components/base.html' %}
 
-{% block title %}ค้นหา{% endblock title %}
+{% block title %}สินค้าทั้งหมด{% endblock title %}
 
 {% block content %}
-<h2>product list</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>title</th>
-            <th>price</th>
-            <th>special price</th>
-        </tr>
-         </thead>
-         <tbody>
-            
-            {% for product in product_S %}
-                <tr>
-                    <td>
-                        <a href="{% url 'badminton' product.id %}">{{product.title}}</a>
-                    </td>
-                    <td>{{product.price}}</td>
-                    
-                    {% if product.special_price is not None %}
-                    <td>{{product.special_price|floatformat:'2g'}}</td>   
-                    {% else %}
-                    <td>-</td>
-                    {% endif %}
-                        
-                    
-                </tr>
+{% load static %}
+<body>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <div>
+        <section id="product_list" class="section_product">
+            <h1>ค้นหาสินค้า</h1>
+            <div class="pro-container">
+                {% for product in product_S %}
+                <div class="pro">
+                    <img src="{{ product.picture.url }}"/>
+                    <div>
+                        <li><a href="{% url 'badminton' product.id %}">{{product.title}}</a></li>
+                        {% if product.special_price is not None %}                
+                            <p> 
+                                <span> {{product.special_price|floatformat:'2g'}}</span>
+                                <del>{{product.price|floatformat:'2g'}}</del>
+                            </p>
+                        {% else %}
+                            <p>{{product.price|floatformat:'2g'}} บาท</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+              <p>ไม่มีสินค้า</p>
             {% endfor %}
-                
-         </tbody>
-    </table>
+            </div>
+        </section>
+            
+        
+    </div>
+</body>
 {% endblock content %}
